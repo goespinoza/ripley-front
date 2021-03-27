@@ -9,7 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "preinstall": "npm install -g @angular/cli @angular/compiler-cli typescript",
-    "heroku-postbuild": "ng build --configuration=production"
+    "heroku-postbuild": "ng build --configuration=production --base-href=\"./\""
   },
   "engines": {
     "node": "10.14.2",
