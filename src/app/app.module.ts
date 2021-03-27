@@ -26,11 +26,11 @@ import { CurrencyMaskConfig, CurrencyMaskModule, CURRENCY_MASK_CONFIG } from 'ng
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: 'right',
   allowNegative: true,
-  decimal: ',',
-  precision: 0,
-  prefix: '$ ',
+  decimal: '.',
+  precision: 2,
+  prefix: 'CLP ',
   suffix: '',
-  thousands: '.'
+  thousands: ','
 };
 
 @NgModule({

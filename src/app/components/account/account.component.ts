@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { BankAccount } from 'src/app/interfaces/account.interface';
 import { AccountService } from 'src/app/services/trx/account.service';
-import { MESSAGE, ACCOUNT_MESSAGE_SUCCESS, SERVER_MESSAGE_ERROR } from '../../utils/constants';
+import { MESSAGE, ACCOUNT_MESSAGE_SUCCESS } from '../../utils/constants';
 
 @Component({
   selector: 'app-account',
@@ -37,7 +37,7 @@ export class AccountComponent implements OnInit {
         this.bankAccount = bankAccount;
         this.toastr.success(ACCOUNT_MESSAGE_SUCCESS, MESSAGE);
       }, error => {
-        this.toastr.error(SERVER_MESSAGE_ERROR, MESSAGE);
+        this.toastr.error(error.error.message, MESSAGE);
       }).add(() => {
         this.loading = false;
       });

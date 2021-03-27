@@ -16,8 +16,12 @@ export class TrxService {
   ) { }
 
   insTrx(request): Observable<Trx> {
-    console.log(request);
     return this.http.post<Trx>(`${environment.url}${environment.services.trx.endpoint}`, request,
+      { headers: this.util.serviceName(environment.services.trx.serviceName) });
+  }
+
+  getTrxByAccount(account: string): Observable<Trx[]> {
+    return this.http.get<Trx[]>(`${environment.url}${environment.services.trx.endpoint}/${account}`,
       { headers: this.util.serviceName(environment.services.trx.serviceName) });
   }
 }

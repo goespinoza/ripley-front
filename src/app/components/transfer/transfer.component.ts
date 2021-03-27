@@ -9,6 +9,7 @@ import { User } from 'src/app/interfaces/user.interface';
 import { AccountService } from 'src/app/services/trx/account.service';
 import { TrxService } from 'src/app/services/trx/trx.service';
 import { MESSAGE, BALANCE_TRANSFER_MESSAGE_SUCCESS, SERVER_MESSAGE_ERROR } from '../../utils/constants';
+import { Util } from 'src/app/utils/util';
 
 @Component({
   selector: 'app-transfer',
@@ -24,6 +25,7 @@ export class TransferComponent implements OnInit {
   user: User;
   users: User[] = [];
   trx: Trx;
+  limit = 0;
   request: any = {
     trx_typ: '',
     ori_acc: '',
@@ -38,6 +40,7 @@ export class TransferComponent implements OnInit {
     private toastr: ToastrService,
     private userService: UserService,
     private fb: FormBuilder,
+    private util: Util
   ) {
     this.createForm();
   }
@@ -51,16 +54,25 @@ export class TransferComponent implements OnInit {
   createForm() {
     this.frmTransferMoney = this.fb.group({
       ori_acc: [null, [Validators.required]],
-      amount: ['', [Validators.required]],
+      amount: ['', [Validators.required, Validators.max(this.limit)]],
       user: [null, [Validators.required]],
       des_acc: [null, [Validators.required]],
     });
+  }
+
+  getTrxByAccount(account) {
+    this.trxService.getTrxByAccount(account)
+      .subscribe((trx: Trx[]) => {
+        this.limit = this.util.addMoneyAccount(trx, account);
+        this.frmTransferMoney.controls[`amount`].setValidators([Validators.max(this.limit)]);
+      }, error => { }).add(() => { });
   }
 
   getAccountByUser(id) {
     this.accountService.getAccount(id)
       .subscribe((account: BankAccount[]) => {
         this.account = account;
+        this.getTrxByAccount(this.account[0].account);
       }, error => { })
       .add(() => { });
   }
@@ -89,7 +101,7 @@ export class TransferComponent implements OnInit {
     this.request.amount = this.frmTransferMoney.get('amount').value;
     this.trxService.insTrx(this.request
     ).subscribe((trx: Trx) => {
-      this.trx = trx;
+      this.getTrxByAccount(this.account[0].account);
       this.toastr.success(BALANCE_TRANSFER_MESSAGE_SUCCESS, MESSAGE);
     }, error => {
       this.toastr.error(SERVER_MESSAGE_ERROR, MESSAGE);

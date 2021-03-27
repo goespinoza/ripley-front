@@ -22,11 +22,13 @@
           <label for="amount">Monto</label>
           <input appNumber currencyMask type="text" class="form-control" id="amount" formControlName="amount"
             [ngClass]="{'is-invalid': frmTransferMoney.controls['amount'].errors && !frmTransferMoney.controls['amount'].pristine}"
-            placeholder="$100.000">
+            placeholder="CLP 10,000-00">
+          <small class="mb-5 form-text text-muted float-right">{{limit | currency:'CLP '}}</small>
           <div *ngIf="frmTransferMoney.controls['amount'].errors && !frmTransferMoney.controls['amount'].pristine"
             class="invalid-feedback">
             <span [hidden]="!frmTransferMoney.controls['amount'].errors.required">Este campo es
               requerido.</span>
+            <span [hidden]="!frmTransferMoney.controls['amount'].errors.max">Monto supera máximo permitido.</span>
           </div>
         </div>
       </div>

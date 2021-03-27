@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { User } from 'src/app/interfaces/user.interface';
 import { LogService } from 'src/app/services/auth/log.service';
 import { ToastrService } from 'ngx-toastr';
-import { MESSAGE, LOGIN_MESSAGE_SUCCESS, SERVER_MESSAGE_ERROR } from '../../utils/constants';
+import { MESSAGE, LOGIN_MESSAGE_SUCCESS } from '../../utils/constants';
 import { RutValidator } from 'ng9-rut';
 
 @Component({
@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
       this.router.navigateByUrl('/dashboard');
       this.toastr.success(LOGIN_MESSAGE_SUCCESS, MESSAGE);
     }, error => {
-      this.toastr.error(error.error.message, MESSAGE)
+      this.toastr.error(error.error.message, MESSAGE);
     }).add(() => {
       this.loading = false;
     });
