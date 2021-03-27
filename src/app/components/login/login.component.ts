@@ -5,6 +5,7 @@ import { User } from 'src/app/interfaces/user.interface';
 import { LogService } from 'src/app/services/auth/log.service';
 import { ToastrService } from 'ngx-toastr';
 import { MESSAGE, LOGIN_MESSAGE_SUCCESS, SERVER_MESSAGE_ERROR } from '../../utils/constants';
+import { RutValidator } from 'ng9-rut';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,8 @@ export class LoginComponent implements OnInit {
     private logService: LogService,
     private fb: FormBuilder,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private rutValidator: RutValidator
   ) {
     this.createForm();
   }
@@ -31,7 +33,7 @@ export class LoginComponent implements OnInit {
 
   createForm() {
     this.frmLogin = this.fb.group({
-      rut: ['', [Validators.required]],
+      rut: ['', [Validators.required, this.rutValidator]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
@@ -46,7 +48,7 @@ export class LoginComponent implements OnInit {
       this.router.navigateByUrl('/dashboard');
       this.toastr.success(LOGIN_MESSAGE_SUCCESS, MESSAGE);
     }, error => {
-      this.toastr.error(SERVER_MESSAGE_ERROR, MESSAGE)
+      this.toastr.error(error.error.message, MESSAGE)
     }).add(() => {
       this.loading = false;
     });

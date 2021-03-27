@@ -12,7 +12,6 @@ import { BalanceChargeComponent } from './components/balance-charge/balance-char
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RestrictInputDirective } from './directives/restrictinput.directive';
-import { DigitonlyDirective } from './directives/digitonly.directive';
 import { InterceptorService } from './interceptors/interceptor.service';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { AccountComponent } from './components/account/account.component';
@@ -20,6 +19,19 @@ import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { ToastrModule } from 'ngx-toastr';
+import { Ng9RutModule } from 'ng9-rut';
+import { NumberDirective } from './directives/number.directive';
+import { CurrencyMaskConfig, CurrencyMaskModule, CURRENCY_MASK_CONFIG } from 'ng2-currency-mask';
+
+export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
+  align: 'right',
+  allowNegative: true,
+  decimal: ',',
+  precision: 0,
+  prefix: '$ ',
+  suffix: '',
+  thousands: '.'
+};
 
 @NgModule({
   declarations: [
@@ -30,12 +42,12 @@ import { ToastrModule } from 'ngx-toastr';
     BalanceWithdrawalComponent,
     BalanceChargeComponent,
     RestrictInputDirective,
-    DigitonlyDirective,
     NavbarComponent,
     AccountComponent,
     LoginComponent,
     DashboardComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    NumberDirective
   ],
   imports: [
     BrowserModule,
@@ -51,14 +63,13 @@ import { ToastrModule } from 'ngx-toastr';
       closeButton: true,
       progressBar: true
     }),
+    Ng9RutModule,
+    CurrencyMaskModule
   ],
   providers: [
     Util,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: InterceptorService,
-      multi: true
-    },
+    { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
+    { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig }
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

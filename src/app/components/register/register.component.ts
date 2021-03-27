@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/interfaces/user.interface';
 import { RegisterService } from 'src/app/services/auth/register.service';
-import { MESSAGE, REGISTER_MESSAGE_SUCCESS, SERVER_MESSAGE_ERROR } from '../../utils/constants';
+import { MESSAGE, REGISTER_MESSAGE_SUCCESS } from '../../utils/constants';
+import { RutValidator } from 'ng9-rut';
 
 @Component({
   selector: 'app-register',
@@ -21,7 +22,8 @@ export class RegisterComponent implements OnInit {
     private registerService: RegisterService,
     private fb: FormBuilder,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private rutValidator: RutValidator,
   ) {
     this.createForm();
   }
@@ -32,7 +34,7 @@ export class RegisterComponent implements OnInit {
   createForm() {
     this.frmRegister = this.fb.group({
       name: ['', [Validators.required]],
-      rut: ['', [Validators.required]],
+      rut: ['', [Validators.required, this.rutValidator]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
@@ -50,7 +52,7 @@ export class RegisterComponent implements OnInit {
       this.router.navigateByUrl('/login');
       this.toastr.success(REGISTER_MESSAGE_SUCCESS, MESSAGE);
     }, error => {
-      this.toastr.error(SERVER_MESSAGE_ERROR, MESSAGE);
+      this.toastr.error(error.error.message, MESSAGE);
     }).add(() => {
       this.loading = false;
     });

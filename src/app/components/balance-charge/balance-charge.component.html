@@ -20,7 +20,7 @@
         </div>
         <div class="form-group">
           <label for="amount">Monto</label>
-          <input type="text" class="form-control" id="amount" formControlName="amount"
+          <input appNumber currencyMask type="text" class="form-control" id="amount" formControlName="amount"
             [ngClass]="{'is-invalid': frmBalancechange.controls['amount'].errors && !frmBalancechange.controls['amount'].pristine}"
             placeholder="$1.000.000">
           <div *ngIf="frmBalancechange.controls['amount'].errors && !frmBalancechange.controls['amount'].pristine"

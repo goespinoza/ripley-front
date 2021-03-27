@@ -1,10 +1,10 @@
-import { Directive, ElementRef, Input, HostListener } from '@angular/core';
+import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 
 @Directive({
-  // tslint:disable-next-line: directive-selector
-  selector: '[digitonly]'
+  selector: '[appNumber]'
 })
-export class DigitonlyDirective {
+export class NumberDirective {
+
   private decimalCounter = 0;
   private navigationKeys = [
     'Backspace',
@@ -20,8 +20,8 @@ export class DigitonlyDirective {
     'Copy',
     'Paste'
   ];
-  @Input() decimal ? = false;
-  @Input() decimalSeparator ? = '.';
+  @Input() decimal?= false;
+  @Input() decimalSeparator?= '.';
   inputElement: HTMLInputElement;
 
   constructor(public el: ElementRef) {

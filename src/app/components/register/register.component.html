@@ -19,7 +19,7 @@
           <label for="">Rut</label>
           <input type="text" class="form-control" id="rut" name="" formControlName="rut"
             [ngClass]="{'is-invalid': frmRegister.controls['rut'].errors && !frmRegister.controls['rut'].pristine}"
-            placeholder="Ingresa tu rut..."/>
+            placeholder="Ingresa tu rut..." formatRut validateRut />
           <div *ngIf="frmRegister.controls['rut'].errors && !frmRegister.controls['rut'].pristine"
             class="invalid-feedback">
             <span [hidden]="!frmRegister.controls['rut'].errors.required">Este campo es

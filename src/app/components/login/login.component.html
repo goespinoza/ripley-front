@@ -8,7 +8,7 @@
           <label for="">Rut</label>
           <input type="text" class="form-control" id="rut" name="" formControlName="rut"
             [ngClass]="{'is-invalid': frmLogin.controls['rut'].errors && !frmLogin.controls['rut'].pristine}"
-            placeholder="Ingresa tu correo..." />
+            placeholder="Ingresa tu correo..." formatRut validateRut />
           <div *ngIf="frmLogin.controls['rut'].errors && !frmLogin.controls['rut'].pristine"
             class="invalid-feedback">
             <span [hidden]="!frmLogin.controls['rut'].errors.required">Este campo es
@@ -31,7 +31,7 @@
         </div>
 
         <button (click)="submit()" [disabled]="!frmLogin.valid" class="btn btn-primary btn-block mt-4">
-          <div class="spinner-border spinner-border-sm" role="status">
+          <div *ngIf="loading" class="spinner-border spinner-border-sm" role="status">
             <span class="sr-only">Loading...</span>
           </div>
           Ingresar
