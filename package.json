@@ -7,7 +7,13 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "preinstall": "npm install -g @angular/cli @angular/compiler-cli typescript",
+    "heroku-postbuild": "ng build --configuration=production"
+  },
+  "engines": {
+    "node": "10.14.2",
+    "npm": "6.4.1"
   },
   "private": true,
   "dependencies": {
