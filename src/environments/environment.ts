@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  url: 'http://localhost:3000/api/',
+  /* url: 'http://localhost:3000/api/', */
+  url: 'https://go-api-ripley.herokuapp.com/api/',
   services: {
     register: {
       isPublic: true,
