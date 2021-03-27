@@ -1,0 +1,45 @@
+<div class="container mt-5">
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-5 col-lg-4 col-xl-4 login-form">
+      <form [formGroup]="frmLogin">
+        <h4 class="my-4">Ingresar</h4>
+
+        <div class="form-group">
+          <label for="">Rut</label>
+          <input type="text" class="form-control" id="rut" name="" formControlName="rut"
+            [ngClass]="{'is-invalid': frmLogin.controls['rut'].errors && !frmLogin.controls['rut'].pristine}"
+            placeholder="Ingresa tu correo..." />
+          <div *ngIf="frmLogin.controls['rut'].errors && !frmLogin.controls['rut'].pristine"
+            class="invalid-feedback">
+            <span [hidden]="!frmLogin.controls['rut'].errors.required">Este campo es
+              requerido.</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="">Contraseña</label>
+          <input type="password" class="form-control" id="password" name="" formControlName="password"
+            [ngClass]="{'is-invalid': frmLogin.controls['password'].errors && !frmLogin.controls['password'].pristine}"
+            placeholder="Ingresa tu constraseña..." autocomplete="on" [maxLength]="10" />
+          <div *ngIf="frmLogin.controls['password'].errors && !frmLogin.controls['password'].pristine"
+            class="invalid-feedback">
+            <span [hidden]="!frmLogin.controls['password'].errors.required">Este campo es
+              requerido.</span>
+            <span [hidden]="!frmLogin.controls['password'].errors.minlength">La contraseña debe tener al
+              menos 6 caracteres.</span>
+          </div>
+        </div>
+
+        <button (click)="submit()" [disabled]="!frmLogin.valid" class="btn btn-primary btn-block mt-4">
+          <div class="spinner-border spinner-border-sm" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+          Ingresar
+        </button>
+        <button [routerLink]="['/register']" type="button" class="btn btn-link-dark btn-sm btn-block mt-2">
+          Registrarme
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

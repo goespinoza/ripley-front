@@ -1,0 +1,68 @@
+<div class="container mt-5">
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-5 col-lg-4 col-xl-4 login-form">
+      <form [formGroup]="frmRegister">
+        <h4 class="my-4">Registrate</h4>
+        <div class="form-group">
+          <label for="">Nombre</label>
+          <input type="text" class="form-control" id="name" name="" formControlName="name"
+            [ngClass]="{'is-invalid': frmRegister.controls['name'].errors && !frmRegister.controls['name'].pristine}"
+            placeholder="Ingresa tu nombre..." appRestrictInput typeInputs="alphanumeric" />
+          <div *ngIf="frmRegister.controls['name'].errors && !frmRegister.controls['name'].pristine"
+            class="invalid-feedback">
+            <span [hidden]="!frmRegister.controls['name'].errors.required">Este campo es
+              requerido.</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="">Rut</label>
+          <input type="text" class="form-control" id="rut" name="" formControlName="rut"
+            [ngClass]="{'is-invalid': frmRegister.controls['rut'].errors && !frmRegister.controls['rut'].pristine}"
+            placeholder="Ingresa tu rut..."/>
+          <div *ngIf="frmRegister.controls['rut'].errors && !frmRegister.controls['rut'].pristine"
+            class="invalid-feedback">
+            <span [hidden]="!frmRegister.controls['rut'].errors.required">Este campo es
+              requerido.</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="">Correo</label>
+          <input type="email" class="form-control" id="email" name="" formControlName="email"
+            [ngClass]="{'is-invalid': frmRegister.controls['email'].errors && !frmRegister.controls['email'].pristine}"
+            placeholder="Ingresa tu correo..." />
+          <div *ngIf="frmRegister.controls['email'].errors && !frmRegister.controls['email'].pristine"
+            class="invalid-feedback">
+            <span [hidden]="!frmRegister.controls['email'].errors.required">Este campo es
+              requerido.</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="">Contraseña</label>
+          <input type="password" class="form-control" id="password" name="" formControlName="password"
+            [ngClass]="{'is-invalid': frmRegister.controls['password'].errors && !frmRegister.controls['password'].pristine}"
+            placeholder="Ingresa tu constraseña..." autocomplete="on" [maxLength]="10" />
+          <div *ngIf="frmRegister.controls['password'].errors && !frmRegister.controls['password'].pristine"
+            class="invalid-feedback">
+            <span [hidden]="!frmRegister.controls['password'].errors.required">Este campo es
+              requerido.</span>
+            <span [hidden]="!frmRegister.controls['password'].errors.minlength">La contraseña debe tener al
+              menos 6 caracteres.</span>
+          </div>
+        </div>
+
+        <button (click)="submit()" [disabled]="!frmRegister.valid" class="btn btn-primary btn-block mt-4">
+          <div *ngIf="loading" class="spinner-border spinner-border-sm" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+          Registrarme
+        </button>
+        <button [routerLink]="['/login']" type="button" class="btn btn-link-dark btn-sm btn-block mt-2">
+          Ya tengo una cuenta
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
